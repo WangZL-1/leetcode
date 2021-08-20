@@ -1,0 +1,47 @@
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        int len = nums.size();
+        vector<vector<int>> result;
+        if(len == 1){
+            vector<int> temp;
+            temp.push_back(nums[0]);
+            result.push_back(temp);
+            return result;
+        }
+        else{
+            vector<int> prev_ints ;
+            recur(nums, prev_ints, len,result );
+        }
+        return result;
+    }
+
+    void recur(vector<int> nums, vector<int>& prev_ints, int len, vector<vector<int>>& result){
+        if(len == 2){
+            vector<int> ele1, ele2;
+            for(int i=0;i<prev_ints.size();i++){
+                ele1.push_back(prev_ints[i]);
+                ele2.push_back(prev_ints[i]);
+            }
+            
+            ele1.push_back(nums[0]); ele1.push_back(nums[1]);
+            ele2.push_back(nums[1]); ele2.push_back(nums[0]);
+            result.push_back(ele1);
+            result.push_back(ele2);
+        }
+        else{
+            for(int i=0;i<len;i++){
+                int head = nums[i];
+                 vector<int> local = prev_ints;
+                  local .push_back(head);
+            
+                vector<int> tail;
+                for(int j=0;j<len;j++){
+                    if(i != j)
+                        tail.push_back(nums[j]);
+                }
+                recur(tail,  local , len-1,result);
+            }
+        }
+    }
+};

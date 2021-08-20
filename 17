@@ -1,0 +1,85 @@
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<char> v2,v3,v4,v5,v6,v7,v8,v9;
+        v2={'a','b','c'};
+        v3={'d','e','f'};
+        v4={'g','h','i'};
+        v5={'j','k','l'};
+        v6={'m','n','o'};
+        v7={'p','q','r','s'};
+        v8={'t','u','v'};
+        v9={'w','x','y','z'};
+        vector<vector<char>> v;
+        v.push_back(v2);
+        v.push_back(v3);
+        v.push_back(v4);
+        v.push_back(v5);
+        v.push_back(v6);
+        v.push_back(v7);
+        v.push_back(v8);
+        v.push_back(v9);
+ 
+       vector<string> result;
+       int size=1;
+       int index[4];
+    //    temp[k].push_back(v[j][k]);
+        for(int i=0;i<digits.length();i++){           
+            for(int j=0;j<8;j++)
+                if(digits[i]-'0'==j+2){
+                    size*=v[j].size();
+                    index[i]=j+2;
+                }
+  
+        }
+
+        string temp[size];
+        if(digits.length()==0){
+          
+            return result;
+        }
+        if(digits.length()==1){
+          
+            for(int i=0;i<v[index[0]-2].size();i++)
+                temp[i].push_back(v[index[0]-2][i]);
+
+        }
+
+        if(digits.length()==2){  
+            for(int i=0;i<v[index[0]-2].size();i++)
+                for(int j=0;j<v[index[1]-2].size();j++){
+                    temp[i*v[index[1]-2].size()+j].push_back(v[index[0]-2][i]);
+                    temp[i*v[index[1]-2].size()+j].push_back(v[index[1]-2][j]);
+                }
+        }
+
+        if(digits.length()==3){   
+            for(int i=0;i<v[index[0]-2].size();i++)
+                for(int j=0;j<v[index[1]-2].size();j++)
+                    for(int k=0;k<v[index[2]-2].size();k++)
+                    {
+                        temp[i*v[index[1]-2].size()*v[index[2]-2].size()+j*v[index[2]-2].size()+k].push_back(v[index[0]-2][i]);
+                        temp[i*v[index[1]-2].size()*v[index[2]-2].size()+j*v[index[2]-2].size()+k].push_back(v[index[1]-2][j]);
+                        temp[i*v[index[1]-2].size()*v[index[2]-2].size()+j*v[index[2]-2].size()+k].push_back(v[index[2]-2][k]);
+                    }
+        }
+        if(digits.length()==4){         
+            for(int i=0;i<v[index[0]-2].size();i++)
+                for(int j=0;j<v[index[1]-2].size();j++)
+                    for(int k=0;k<v[index[2]-2].size();k++)
+                        for(int m=0;m<v[index[3]-2].size();m++)
+                        {
+                            temp[i*v[index[1]-2].size()*v[index[2]-2].size()*v[index[3]-2].size()+j*v[index[2]-2].size()*v[index[3]-2].size()+k*v[index[3]-2].size()+m].push_back(v[index[0]-2][i]);
+                            temp[i*v[index[1]-2].size()*v[index[2]-2].size()*v[index[3]-2].size()+j*v[index[2]-2].size()*v[index[3]-2].size()+k*v[index[3]-2].size()+m].push_back(v[index[1]-2][j]);
+                            temp[i*v[index[1]-2].size()*v[index[2]-2].size()*v[index[3]-2].size()+j*v[index[2]-2].size()*v[index[3]-2].size()+k*v[index[3]-2].size()+m].push_back(v[index[2]-2][k]);
+                            temp[i*v[index[1]-2].size()*v[index[2]-2].size()*v[index[3]-2].size()+j*v[index[2]-2].size()*v[index[3]-2].size()+k*v[index[3]-2].size()+m].push_back(v[index[3]-2][m]);
+                        }
+        }
+
+         for (int a=0;a<size;a++)
+        {                
+            result.push_back(temp[a]);
+        }
+        return result;
+    }
+};

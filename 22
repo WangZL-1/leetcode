@@ -12,14 +12,10 @@ public:
     if(left>right)
         return;
     if (left>0){
-        c = c+'(';
-        recer(left-1, right,c,result );
-        c.pop_back();
+        recer(left-1, right,c+'(',result );
     }
     if (right>0){
-        c = c+')';
-        recer(left, right-1,c,result );
-        c.pop_back();
+        recer(left, right-1,c+')',result );
     }
     if (right==0){
         result.push_back(c);

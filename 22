@@ -1,0 +1,29 @@
+class Solution {
+public:
+  vector<string> generateParenthesis(int n) {
+    vector<string> result;
+    string c;
+
+    recer(n,n,c, result);
+    return result;
+   }
+
+   void recer(int left, int right, string c, vector<string> & result){
+    if(left>right)
+        return;
+    if (left>0){
+        c = c+'(';
+        recer(left-1, right,c,result );
+        c.pop_back();
+    }
+    if (right>0){
+        c = c+')';
+        recer(left, right-1,c,result );
+        c.pop_back();
+    }
+    if (right==0){
+        result.push_back(c);
+        return;
+    }
+   }
+};

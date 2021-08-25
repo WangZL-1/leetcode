@@ -1,21 +1,15 @@
 class Solution {
 public:
-    void solveSudoku(vector<vector<char>>& board) {
-        
+    void solveSudoku(vector<vector<char>>& board) {       
         fill(board,0,0);
-
    }
    bool fill(vector<vector<char>>& board, int x,int y){
         if(y==9)
             return true;
-
         int nx = (x + 1) % 9;
         int ny = (nx == 0) ? y + 1 : y;
         if (board[x][y] != '.') 
-            return fill(board, nx, ny);
-        
-        // for(int i = 0; i < 9; i++)
-        //     for(int j = 0; j < 9; j++) {
+            return fill(board, nx, ny);        
                 const char c = board[x][y]; 
                 if ( c == '.') {
                     for (int n=1;n<=9;n++){                       
@@ -28,10 +22,8 @@ public:
                         }
                     }
                    
-                }
-            // } 
+                } 
         return false;
-
    }
    bool isok (vector<vector<char>>& board, int n,int x,int y){
        for(int i=0;i<9;i++){
@@ -52,6 +44,3 @@ public:
 
    }
 };
-
-
-

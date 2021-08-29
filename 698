@@ -1,0 +1,40 @@
+class Solution {
+public:
+    bool canPartitionKSubsets(vector<int>& nums, int k) {
+        int sum=0;
+        for(int i=0;i<nums.size();i++){
+            sum+=nums[i];
+        }
+        int subsum=sum/k;
+        // cout<<subsum;
+        int count =0;
+        vector<int> state(nums.size(),0);
+        return match(nums,state,k,subsum,0);
+ 
+    }
+    bool match(vector<int>& nums,vector<int>& state, int k,int subsum,int curr){
+        if(k==0)
+            return true;
+        for(int i=0;i<nums.size();i++){
+            if(state[i]==0){
+             state[i]=1;
+            int temp=curr+nums[i];
+            if(temp>subsum){
+                state[i]=0;
+                break;
+            }
+            if(temp==subsum){
+                // state[i]=1;
+                if(match(nums,state,k-1,subsum,0))
+                    return true;
+            }
+            else{
+                if(match(nums,state,k,subsum,temp))
+                    return true;
+            }
+            }
+        }
+        return false;
+
+    }
+};

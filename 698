@@ -9,6 +9,7 @@ public:
         // cout<<subsum;
         int count =0;
         vector<int> state(nums.size(),0);
+        
         return match(nums,state,k,subsum,0);
  
     }
@@ -17,24 +18,74 @@ public:
             return true;
         for(int i=0;i<nums.size();i++){
             if(state[i]==0){
-             state[i]=1;
-            int temp=curr+nums[i];
-            if(temp>subsum){
-                state[i]=0;
-                break;
-            }
-            if(temp==subsum){
+                
+                int temp=curr+nums[i];
+                if(temp>subsum){
+
+                    continue;
+                }
+                state[i]=1;
+                if(temp==subsum){
                 // state[i]=1;
-                if(match(nums,state,k-1,subsum,0))
-                    return true;
-            }
-            else{
-                if(match(nums,state,k,subsum,temp))
-                    return true;
-            }
+                    
+                    if(match(nums,state,k-1,subsum,0))
+                        return true;
+                    else {   
+                        state[i]=0;
+                        continue;
+                    }
+                }
+                else{
+                    if(match(nums,state,k,subsum,temp))
+                        return true;
+                }
             }
         }
         return false;
 
     }
 };
+
+
+class Solution {
+public:
+    bool canPartitionKSubsets(vector<int>& nums, int k) {
+        int sum=0;
+        for(int i=0;i<nums.size();i++){
+            sum+=nums[i];
+        }
+        if(k>nums.size()) return false;
+        int subsum=sum/k;
+         if(sum % k!=0) return false;
+        // cout<<subsum;
+        int count =0;
+        vector<int> state(nums.size(),0);
+        
+        return match(nums,state,k,subsum,0,0);
+ 
+    }
+    bool match(vector<int>& nums,vector<int>& state, int k,int subsum,int curr,int start){
+        if(k==0)
+            return true;
+        if (curr==subsum)
+            return match(nums,state,k-1,subsum,0, 0);
+        for(int i=start;i<nums.size();i++){
+            if(state[i]==1)
+                continue;
+
+            int temp=curr+nums[i];
+            if(temp>subsum){
+                continue;
+            }
+            state[i]=1;
+            if(match(nums,state,k,subsum,temp,i+1))
+                return true;
+            state[i]=0;
+                
+            
+        }
+        return false;
+
+    }
+};
+

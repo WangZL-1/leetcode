@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        vector<int> order;
+        traversal(root,order);
+        for (int i=0;i<order.size()-1;i++)
+            if(order[i]>=order[i+1])
+                return false;
+        return true;
+    }
+    void traversal(TreeNode* root,vector<int>& order){
+        if (root==nullptr)
+            return;
+        if(root->left!=nullptr){
+            traversal(root->left, order);
+            order.push_back(root->val);
+        }
+        else
+            order.push_back(root->val);
+        traversal(root->right, order);
+    }
+
+};

@@ -1,0 +1,45 @@
+class Solution {
+public:
+    ListNode* insertionSortList(ListNode* head) {
+        if(head==nullptr||head->next==nullptr)
+            return head;
+        ListNode* begin=head;
+        ListNode* end=head;
+        ListNode* curr=end->next;
+        while(curr!=nullptr){
+            ListNode* curr2=curr->next;
+            insert(begin,end,curr);
+            curr=curr2;
+        }
+        return begin;
+    }
+
+// curr->next will change so it need to be stored before insert
+    void insert(ListNode* &begin,ListNode* &end,ListNode* &curr){
+        ListNode* temp=begin;
+        if(curr->val<=begin->val){
+            begin=curr;
+            curr->next=temp;
+            end->next=nullptr;
+        }
+        else if(curr->val>=end->val){
+            end->next=curr;
+            curr->next=nullptr;
+            end=curr;
+        }
+        else{
+            while(temp!=end){
+                if(curr->val>temp->val){
+                    if(curr->val<=temp->next->val){
+                        ListNode* temp2=temp->next;
+                        temp->next=curr;
+                        curr->next=temp2;
+                        break;
+                    }
+                    temp=temp->next;
+                }
+            }
+        }
+    }
+
+};

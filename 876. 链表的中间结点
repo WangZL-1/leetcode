@@ -1,0 +1,31 @@
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* mid=head;
+        ListNode* temp=head;
+        int count =0;
+        for(int i=0;temp->next!=nullptr;count++){
+            temp=temp->next;
+        }
+        if(count%2==0)
+            for(int i=0;i<count/2;i++)
+                mid=mid->next;
+        else
+            for(int i=0;i<=count/2;i++)
+                mid=mid->next;
+        return mid;
+    }
+};
+
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* mid=head;
+        ListNode* temp=head;
+        for(int i=0;temp!=nullptr&&temp->next!=nullptr;temp=temp->next){
+            mid=mid->next;
+            temp=temp->next;
+        }
+        return mid;
+    }
+};

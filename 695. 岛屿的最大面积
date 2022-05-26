@@ -1,0 +1,60 @@
+class Solution {
+public:
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+        vector<vector<int>> visited(grid.size(),vector<int>(grid[0].size()));
+        
+        for(int i=0;i<grid.size();i++)
+            for(int j=0;j<grid[0].size();j++)
+                if(grid[i][j]==1){
+                    int n=1;
+                    dfs(grid,visited,i,j,n);}
+        int max=0;
+        for(int i=0;i<grid.size();i++){
+            for(int j=0;j<grid[0].size();j++){
+                cout<<grid[i][j]<<"\t";
+                if(grid[i][j]>max)
+                    max=grid[i][j];
+            }
+              cout<<endl;}
+        return max;
+    }
+    void dfs(vector<vector<int>>& grid,vector<vector<int>>& visited,int i,int j,int& max){
+        
+        if(visited[i][j]==1)
+            return;
+        visited[i][j]=1;
+        
+        // left
+        if(j-1>=0&&visited[i][j-1]==0){
+            if(grid[i][j-1]==1){
+                max++;
+                grid[i][j-1]=max;
+                dfs(grid,visited,i,j-1,max);
+            }    
+        }
+        // top
+        if(i-1>=0&&visited[i-1][j]==0){
+            if(grid[i-1][j]==1){
+                max++;
+                grid[i-1][j]=max;
+                dfs(grid,visited,i-1,j,max);
+            }    
+        }
+        // bottow
+        if(i+1<grid.size()&&visited[i+1][j]==0){
+            if(grid[i+1][j]==1){
+                max++;
+                grid[i+1][j]=max;
+                dfs(grid,visited,i+1,j,max);
+            }    
+        }
+        // right
+        if(j+1<grid[0].size()&&visited[i][j+1]==0){
+            if(grid[i][j+1]==1){
+                max++;
+                grid[i][j+1]=max;
+                dfs(grid,visited,i,j+1,max);
+            }    
+        }
+    }
+};

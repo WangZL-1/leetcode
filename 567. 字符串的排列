@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        unordered_map<char, int> window;
+        unordered_map<char, int> window2;
+        if(s1.length()>s2.size())
+            return false;
+        for(int i=0;i<s1.length();i++){
+            window[s1[i]]++;
+            window2[s2[i]]++;
+        }
+        int left=0,right=s1.length()-1;
+        for(;right<s2.length();){
+            if(window==window2)
+                return true;
+            else{
+                window2[s2[left]]--;
+                if(window2[s2[left]]==0){
+                    window2.erase(s2[left]);
+                }
+                left++;
+                right++;
+                window2[s2[right]]++;
+                
+            }
+            // print_map(window2);
+        }
+        return window==window2;
+    }
+
+// void print_map(std::unordered_map<char, int> const &m)
+// {
+//     for (auto const &pair: m) {
+//         std::cout << "{" << pair.first << ": " << pair.second << "}\t";
+//     }
+//     cout<<endl;
+// }
+};

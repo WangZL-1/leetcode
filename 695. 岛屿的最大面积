@@ -9,13 +9,11 @@ public:
                     int n=1;
                     dfs(grid,visited,i,j,n);}
         int max=0;
-        for(int i=0;i<grid.size();i++){
-            for(int j=0;j<grid[0].size();j++){
-                cout<<grid[i][j]<<"\t";
+        for(int i=0;i<grid.size();i++)
+            for(int j=0;j<grid[0].size();j++)
                 if(grid[i][j]>max)
                     max=grid[i][j];
-            }
-              cout<<endl;}
+
         return max;
     }
     void dfs(vector<vector<int>>& grid,vector<vector<int>>& visited,int i,int j,int& max){

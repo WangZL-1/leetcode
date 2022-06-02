@@ -11,8 +11,6 @@ public class Solution {
             n>>=1;
             size--;   
         }
-        if(n==1)
-            return res+1;
         return res;
     }
 }

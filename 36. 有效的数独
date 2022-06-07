@@ -1,0 +1,48 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        
+        boolean res=true;
+        for(int i=0;i<9;i++){
+            // 行
+            HashMap<Character, Integer> row = new HashMap<Character, Integer>();
+            for(int j=0;j<9;j++){
+                if(board[i][j]=='.')
+                    continue;
+                if(row.containsKey(board[i][j])){System.out.println(j+"hang");
+                   return false;}
+                else
+                    row.put(board[i][j],1);
+            }
+            // 列
+            HashMap<Character, Integer> cloumn = new HashMap<Character, Integer>();
+            for(int k=0;k<9;k++){
+                if(board[k][i]=='.')
+                    continue;
+                if(cloumn.containsKey(board[k][i])){System.out.println("lie");
+                   return false;}
+                else
+                    cloumn.put(board[k][i],1);
+            }
+            // 3*3
+            for(int m=0;m<9;m++){
+                if(i%3==0&&m%3==0){
+                    HashMap<Character, Integer> box = new HashMap<Character, Integer>();
+                    for(int n=0;n<3;n++){
+                        for(int o=0;o<3;o++){
+                            if(board[i+n][m+o]=='.')
+                                continue;
+                            if(box.containsKey(board[i+n][m+o])){System.out.println(m+o+"3*3");
+                                return false;}
+                            else
+                                box.put(board[i+n][m+o],1);
+                        }
+                    }
+                }
+                
+            }
+        }
+
+        return res;
+    }
+
+}

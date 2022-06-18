@@ -1,0 +1,46 @@
+class Solution {
+    public int numSubarrayProductLessThanK(int[] nums, int k) {
+        int l=0,r=0;
+        int res=0;
+        while(r<=nums.length&&l<=nums.length){
+            int n=1;
+            while(r<nums.length&&n<k){
+                n=n*nums[r];
+                r++;     
+            }
+            if(n>=k||r>nums.length){
+                n=n/nums[l];
+                r--;}
+            res+=r-l;
+            if(res<0)
+                return 0;
+            l++;
+            r=l;
+            
+        }
+        return res;
+    }
+}
+
+
+
+class Solution {
+    public int numSubarrayProductLessThanK(int[] nums, int k) {
+        int n = nums.length, ret = 0;
+        int prod = 1, i = 0;
+        for (int j = 0; j < n; j++) {
+            prod *= nums[j];
+            while (i <= j && prod >= k) {
+                prod /= nums[i];
+                i++;
+            }
+            ret += j - i + 1;
+        }
+        return ret;
+    }
+}
+
+作者：LeetCode-Solution
+链接：https://leetcode.cn/problems/subarray-product-less-than-k/solution/cheng-ji-xiao-yu-k-de-zi-shu-zu-by-leetc-92wl/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
